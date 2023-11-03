@@ -1,26 +1,33 @@
-import { Injectable } from '@nestjs/common';
+import { UserRepository } from './repository/user.respository';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
-  }
+  constructor(private userRository: UserRepository) {}
 
-  findAll() {
-    return `This action returns all users`;
-  }
+  async execute({ userId, userName, password }: CreateUserDto) {
+    try {
+      const userExists = await this.userRository.findById(userId);
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
-  }
+      if (!userExists) {
+        throw new NotFoundException({
+          error: {
+            code: '404',
+            message: 'User not found',
+          },
+        });
+      }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
+      const user = await this.userRository.create({
+        userId,
+        userName,
+        password,
+      });
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+      return user;
+    } catch (error) {
+      console.error(error);
+    }
   }
 }

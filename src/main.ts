@@ -3,6 +3,9 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
   await app.listen(3030);
 }
-bootstrap();
+bootstrap().catch((error) => {
+  console.error('Failed to start the application', error);
+});

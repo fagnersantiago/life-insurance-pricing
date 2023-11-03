@@ -10,8 +10,8 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  ADMIM
+enum Rule {
+  ADMIN
   USER
 }
 
@@ -19,7 +19,7 @@ model User {
   userId    String   @id @default(uuid())
   userName  String   @unique
   password  String   @db.VarChar(60)
-  role      Role     @default(USER)
+  rule      Rule     @default(USER)
   createdAt DateTime @default(now())
 
   @@map("user")

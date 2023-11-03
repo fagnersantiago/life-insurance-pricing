@@ -11,10 +11,11 @@ export class PrismaService
       log: ['warn', 'error', 'query'],
     });
   }
-  onModuleInit() {
-    return this.$connect();
+
+  async onModuleInit() {
+    return console.log('CONECTOU', await this.$connect());
   }
-  onModuleDestroy() {
-    return this.$disconnect();
+  async onModuleDestroy() {
+    return console.log(await this.$disconnect());
   }
 }
