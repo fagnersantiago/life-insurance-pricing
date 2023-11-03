@@ -16,8 +16,11 @@ enum Role {
 }
 
 model User {
-  userId   String @id @default(uuid())
-  userName String @unique
-  password String
-  role     Role   @default(USER)
+  userId    String   @id @default(uuid())
+  userName  String   @unique
+  password  String   @db.VarChar(60)
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+
+  @@map("user")
 }
