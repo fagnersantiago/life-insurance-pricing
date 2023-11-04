@@ -8,8 +8,8 @@ export class PrismaUserRepository implements UserRepository {
 
   async isValidPassword(password: string): Promise<boolean> {
     const hasQuantityCaracterAllowed = password.length;
-    if (hasQuantityCaracterAllowed >= 8 && hasQuantityCaracterAllowed <= 64) {
-      return true;
+    if (hasQuantityCaracterAllowed < 8 && hasQuantityCaracterAllowed > 64) {
+      return false;
     }
 
     const isSecurePassword =

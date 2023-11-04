@@ -8,23 +8,19 @@ export class UsersController {
 
   @Post('/create')
   async create(@Body() body: CreateUserDto) {
-    try {
-      const { userName, password } = body;
+    const { userName, password } = body;
 
-      const createUser = await this.usersService.execute({
-        userName,
-        password,
-      });
+    const createUser = await this.usersService.execute({
+      userName,
+      password,
+    });
 
-      return {
-        data: {
-          userId: createUser.userId,
-          userName: createUser.userName,
-          rule: createUser.rule,
-        },
-      };
-    } catch (error) {
-      console.log(error);
-    }
+    return {
+      data: {
+        userId: createUser.userId,
+        userName: createUser.userName,
+        rule: createUser.rule,
+      },
+    };
   }
 }
