@@ -1,7 +1,8 @@
-import { PrismaService } from '../prisma.service';
 import { UserRepository } from 'src/users/repository/user.respository';
+import { PrismaService } from '../prisma.service';
 import { User } from 'src/users/entitie/user';
-
+import { Injectable } from '@nestjs/common/decorators';
+@Injectable()
 export class PrismaUserRepository implements UserRepository {
   constructor(private prisma: PrismaService) {}
 
@@ -30,10 +31,10 @@ export class PrismaUserRepository implements UserRepository {
     return userCreated;
   }
 
-  async findById(userId: string): Promise<User | null> {
+  async findByUserName(userName: string): Promise<User | null> {
     const user = await this.prisma.user.findUnique({
       where: {
-        userId,
+        userName,
       },
     });
 

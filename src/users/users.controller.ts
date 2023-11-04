@@ -7,9 +7,9 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Post('/create')
-  async create(@Body() createUserDto: CreateUserDto) {
+  async create(@Body() body: CreateUserDto) {
     try {
-      const { userName, password } = createUserDto;
+      const { userName, password } = body;
 
       const createUser = await this.usersService.execute({
         userName,
@@ -18,13 +18,13 @@ export class UsersController {
 
       return {
         data: {
-          userName,
-          createUser,
-          role: createUserDto.rule,
+          userId: createUser.userId,
+          userName: createUser.userName,
+          rule: createUser.rule,
         },
       };
     } catch (error) {
-      console.error(error.message);
+      console.log(error);
     }
   }
 }
