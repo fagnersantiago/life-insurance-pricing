@@ -1,14 +1,14 @@
-import { UserRepository } from './repository/user.respository';
+import { UserRepository } from '../infra/database/prisma/repositories/prismaRepository/user.respository';
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UserAlreadyExists } from './errors/user-already-exists.error';
-import { PasswordValidator } from './errors/password-validator';
+import { CreateUserDto } from '../dto/create-user.dto';
+import { UserAlreadyExists } from '../errors/user-already-exists.error';
+import { PasswordValidator } from '../errors/password-validator';
 
 @Injectable()
 export class UsersService {
   constructor(private userRository: UserRepository) {}
 
-  async execute({ userId, userName, password }: CreateUserDto) {
+  async execute({ userName, password }: CreateUserDto) {
     const userExists = await this.userRository.findByUserName(userName);
 
     if (userExists) {
@@ -22,7 +22,6 @@ export class UsersService {
     }
 
     const user = await this.userRository.create({
-      userId,
       userName,
       password,
     });

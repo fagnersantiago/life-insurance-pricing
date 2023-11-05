@@ -24,7 +24,6 @@ export class User {
   }
 
   constructor({ userId, userName, password, rule, createdAt }: Props) {
-    console.log('idd', userId);
     this._userId = userId ?? randomUUID();
     this.userName = userName;
     this.password = password;
