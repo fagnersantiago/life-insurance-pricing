@@ -1,4 +1,4 @@
-import { UserRepository } from '../infra/database/prisma/repositories/prismaRepository/user.respository';
+import { UserRepository } from '../infra/database/prisma/repositories/user.respository';
 import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UserAlreadyExists } from '../errors/user-already-exists.error';

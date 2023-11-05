@@ -1,8 +1,26 @@
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { User } from '../../../../../../../src/users/entitie/user';
-import { UserRepository } from 'src/users/infra/database/prisma/repositories/prismaRepository/user.respository';
+import { UserRepository } from 'src/users/infra/database/prisma/repositories/user.respository';
+import { ChangeRoleUsersDto } from 'src/users/dto/change-role.users.dto';
 
 export class InMemoryUserRepository implements UserRepository {
+  async findByUserId(userId: string): Promise<User | null> {
+    const user = this.userRepository.find((find) => find.userId === userId);
+
+    return user;
+  }
+  async update({ userId, rule }: ChangeRoleUsersDto): Promise<User> {
+    const updateRole = this.userRepository.find(
+      (find) => find.userId === userId,
+    );
+    Object.assign({
+      rule,
+    });
+
+    this.userRepository.push(updateRole);
+
+    return updateRole;
+  }
   private userRepository: User[] = [];
 
   async isValidPassword(password: string): Promise<boolean> {
@@ -33,5 +51,14 @@ export class InMemoryUserRepository implements UserRepository {
   async findByUserName(userName: string): Promise<User | null> {
     const user = this.userRepository.find((find) => find.userName === userName);
     return user as User;
+  }
+
+  async isAdmin(userId: string): Promise<boolean> {
+    const user = this.userRepository.find((find) => find.userId === userId);
+
+    if (user.rule !== 'ADMIN') {
+      return false;
+    }
+    return true;
   }
 }

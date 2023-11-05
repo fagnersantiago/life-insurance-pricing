@@ -9,6 +9,8 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { UserAlreadyExists } from './user-already-exists.error';
 import { PasswordValidator } from './password-validator';
+import { UserNotFound } from './user-not-found';
+import { UserIsNotAdmin } from './user-not-admin';
 
 @Injectable()
 export class ErrorInterceptor implements NestInterceptor {
@@ -26,8 +28,20 @@ export class ErrorInterceptor implements NestInterceptor {
 
           case error instanceof PasswordValidator:
             response
-              .status(HttpStatus.NOT_FOUND)
+              .status(HttpStatus.UNPROCESSABLE_ENTITY)
               .json(new PasswordValidator().getResponse());
+            break;
+
+          case error instanceof UserNotFound:
+            response
+              .status(HttpStatus.NOT_FOUND)
+              .json(new UserNotFound().getResponse());
+            break;
+
+          case error instanceof UserIsNotAdmin:
+            response
+              .status(HttpStatus.UNAUTHORIZED)
+              .json(new UserIsNotAdmin().getResponse());
             break;
 
           default:
