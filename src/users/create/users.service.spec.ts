@@ -15,7 +15,7 @@ describe(' Create User', () => {
   it('Should be able create a new User', async () => {
     const sut = await createUserService.execute({
       userName: 'johnDoe',
-      password: '1234596!F',
+      password: '1234596!F@@',
     });
 
     expect(sut).toHaveProperty('userId');
@@ -25,7 +25,7 @@ describe(' Create User', () => {
     expect(async () => {
       const sut = await createUserService.execute({
         userName: 'johnDoe',
-        password: '1234596!F',
+        password: '1234596!F@',
       });
 
       await createUserService.execute({
@@ -37,14 +37,9 @@ describe(' Create User', () => {
 
   it('Should validate rules of password', async () => {
     expect(async () => {
-      const sut = await createUserService.execute({
+      await createUserService.execute({
         userName: 'johnDoe',
         password: '123459',
-      });
-
-      await createUserService.execute({
-        userName: sut.userName,
-        password: sut.password,
       });
     }).rejects.toBeInstanceOf(PasswordValidator);
   });

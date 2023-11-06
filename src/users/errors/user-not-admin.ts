@@ -5,11 +5,11 @@ export class UserIsNotAdmin extends HttpException {
     super(
       {
         error: {
-          code: HttpStatus.UNAUTHORIZED,
+          code: HttpStatus.FORBIDDEN,
           message: 'Unauthorized! Only admin can change users role',
         },
       },
-      HttpStatus.UNAUTHORIZED,
+      HttpStatus.FORBIDDEN,
     );
   }
 }

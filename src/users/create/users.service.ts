@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateUserDto } from '../dto/create-user.dto';
 import { UserAlreadyExists } from '../errors/user-already-exists.error';
 import { PasswordValidator } from '../errors/password-validator';
+import { hash } from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -21,9 +22,11 @@ export class UsersService {
       throw new PasswordValidator();
     }
 
+    const passwordHash = await hash(password, 8);
+
     const user = await this.userRository.create({
       userName,
-      password,
+      password: passwordHash,
     });
 
     return user;
