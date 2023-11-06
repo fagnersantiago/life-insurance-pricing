@@ -11,6 +11,7 @@ import { UserAlreadyExists } from './user-already-exists.error';
 import { PasswordValidator } from './password-validator';
 import { UserNotFound } from './user-not-found';
 import { UserIsNotAdmin } from './user-not-admin';
+import { InvalidUsernameOrPassword } from './invalid-user-or-password';
 
 @Injectable()
 export class ErrorInterceptor implements NestInterceptor {
@@ -40,8 +41,13 @@ export class ErrorInterceptor implements NestInterceptor {
 
           case error instanceof UserIsNotAdmin:
             response
-              .status(HttpStatus.UNAUTHORIZED)
+              .status(HttpStatus.FORBIDDEN)
               .json(new UserIsNotAdmin().getResponse());
+            break;
+          case error instanceof InvalidUsernameOrPassword:
+            response
+              .status(HttpStatus.UNAUTHORIZED)
+              .json(new InvalidUsernameOrPassword().getResponse());
             break;
 
           default:

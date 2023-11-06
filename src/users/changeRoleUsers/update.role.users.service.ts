@@ -17,10 +17,6 @@ export class ChangeRoleUsersService {
 
     await this.changeRoleUsers.isAdmin(userExists.userId);
 
-    // if (userExists.rule !== 'ADMIN') {
-    //   throw new UserIsNotAdmin();
-    // }
-
     const user = await this.changeRoleUsers.update({
       userId,
       rule,

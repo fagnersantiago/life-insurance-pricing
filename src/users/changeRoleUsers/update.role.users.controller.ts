@@ -1,13 +1,15 @@
-import { Controller, Patch, Body, Param } from '@nestjs/common';
+import { Controller, Patch, Body, Param, UseGuards } from '@nestjs/common';
 import { ChangeRoleUsersService } from './update.role.users.service';
-
+import { AuthGuard } from '@nestjs/passport';
 import { ChangeRoleUsersDto } from '../dto/change-role.users.dto';
-
+import { AccessGuard } from '../auth/strategies/access.guards';
+@UseGuards(AuthGuard('jwt'))
 @Controller('users')
 export class ChangeRoleUsersController {
   constructor(private updateRoleUserService: ChangeRoleUsersService) {}
 
   @Patch('/:userId')
+  @UseGuards(AccessGuard)
   async handle(
     @Param('userId') userId: string,
     @Body()

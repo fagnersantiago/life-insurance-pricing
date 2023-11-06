@@ -36,11 +36,11 @@ describe(' Create User', () => {
   });
 
   it('Should validate rules of password', async () => {
-    expect(async () => {
-      await createUserService.execute({
+    await expect(
+      createUserService.execute({
         userName: 'johnDoe',
-        password: '123459',
-      });
-    }).rejects.toBeInstanceOf(PasswordValidator);
+        password: '12222',
+      }),
+    ).rejects.toBeInstanceOf(PasswordValidator);
   });
 });

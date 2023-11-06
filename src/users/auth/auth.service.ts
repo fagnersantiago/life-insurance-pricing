@@ -4,6 +4,7 @@ import { SingDTO } from './dto/signDto';
 import { compare } from 'bcrypt';
 import { UserRepository } from '../infra/database/prisma/repositories/user.respository';
 import { UserNotFound } from '../errors/user-not-found';
+import { InvalidUsernameOrPassword } from '../errors/invalid-user-or-password';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +15,7 @@ export class AuthService {
 
   async validateUser(userName: string, password: string): Promise<any> {
     const user = await this.userService.findByUserName(userName);
-    console.log(user);
+
     if (!user) {
       throw new UserNotFound();
     }
@@ -22,7 +23,7 @@ export class AuthService {
     const isValidPassword = await compare(password, user.password);
 
     if (!isValidPassword) {
-      return null;
+      throw new InvalidUsernameOrPassword();
     }
 
     return user;
