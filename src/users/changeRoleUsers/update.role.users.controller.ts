@@ -8,7 +8,7 @@ export class ChangeRoleUsersController {
   constructor(private updateRoleUserService: ChangeRoleUsersService) {}
 
   @Patch('/:userId')
-  async create(
+  async handle(
     @Param('userId') userId: string,
     @Body()
     body: ChangeRoleUsersDto,

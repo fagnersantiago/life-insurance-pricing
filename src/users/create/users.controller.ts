@@ -11,7 +11,7 @@ export class UsersController {
 
   @Post('/create')
   @UseGuards(AccessGuard)
-  async create(@Body() body: CreateUserDto) {
+  async handle(@Body() body: CreateUserDto) {
     const { userName, password } = body;
 
     const createUser = await this.usersService.execute({

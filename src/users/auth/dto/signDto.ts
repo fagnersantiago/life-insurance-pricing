@@ -8,5 +8,5 @@ export abstract class SingDTO {
 }
 
 export abstract class ResponseAuth {
-  access_token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIwNjA2MTk4OC8yMDIzIiwibmFtZSI6IkZhZ25lcnNhbnRpYWdvIiwiaWF0IjoxNTE2MjM5MDIyfQ.veeXlc4DXkkgw6v6LllSU9iGaVf3fIbM1HkqxTRnbMc';
+  access_token = process.env.ACCESS_TOKEN;
 }
