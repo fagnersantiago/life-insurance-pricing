@@ -4,8 +4,8 @@ import { CreateCoverageController } from './coverage.controller';
 import { DatabaseModule } from '../infra/database/prisma/database.module';
 import { ErrorInterceptor } from '../errors/interceptor/interceptor';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { UpdateCoverageController } from '../changeRoleUsers/update.coverage.controller';
-import { UpdateCoverageService } from '../changeRoleUsers/update.coverage.service';
+import { UpdateCoverageController } from '../update/update.coverage.controller';
+import { UpdateCoverageService } from '../update/update.coverage.service';
 
 @Module({
   imports: [DatabaseModule],
