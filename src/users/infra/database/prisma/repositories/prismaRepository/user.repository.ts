@@ -4,6 +4,7 @@ import { User } from 'src/users/entitie/user';
 import { Injectable } from '@nestjs/common/decorators';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { ChangeRoleUsersDto } from 'src/users/dto/change-role.users.dto';
+import { VALIDATE_PASSWORD } from 'src/users/helpers/validate-password';
 
 @Injectable()
 export class PrismaUserRepository implements UserRepository {
@@ -83,8 +84,7 @@ export class PrismaUserRepository implements UserRepository {
       return false;
     }
 
-    const isSecurePassword =
-      /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#!$%])[A-Za-z\d@#!$%]*$/;
+    const isSecurePassword = VALIDATE_PASSWORD;
 
     if (!isSecurePassword.test(password)) return false;
 
