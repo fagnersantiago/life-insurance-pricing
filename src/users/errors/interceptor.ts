@@ -8,10 +8,10 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { UserAlreadyExists } from './user-already-exists.error';
-import { PasswordValidator } from './password-validator';
 import { UserNotFound } from './user-not-found';
 import { UserIsNotAdmin } from './user-not-admin';
 import { InvalidUsernameOrPassword } from './invalid-user-or-password';
+import { PasswordValidator } from './password-validator';
 
 @Injectable()
 export class ErrorInterceptor implements NestInterceptor {
